@@ -7,12 +7,18 @@ let count = 0;
 
 number.innerText = count;
 
+const updateText = () => {
+  number.innerText = count;
+};
+
 const handleAdd = () => {
   count = count + 1;
+  updateText();
 };
 
 const handleMinus = () => {
-  count += 1;
+  count -= 1;
+  updateText();
 };
 
 add.addEventListener("click", handleAdd);
