@@ -5,9 +5,12 @@ const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
 const countModifier = (count = 0, action) => {
+  console.log(count, action);
   if (action.type === "ADD") {
     console.log("Hi~ ADD!!!");
     return count + 1;
+  } else if (action.type === "MINUS") {
+    return count - 1;
   }
   // console.log(count, action);
   return count;
@@ -16,5 +19,8 @@ const countModifier = (count = 0, action) => {
 const countStore = createStore(countModifier);
 
 countStore.dispatch({ type: "ADD" });
+countStore.dispatch({ type: "MINUS" });
+countStore.dispatch({ type: "MINUS" });
+countStore.dispatch({ type: "MINUS" });
 
 console.log(countStore.getState());
