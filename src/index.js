@@ -4,23 +4,26 @@ const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
+number.innerText = 0;
+
+// Reducer 데이터가 수정되는 유일한 함수
 const countModifier = (count = 0, action) => {
   console.log(count, action);
   if (action.type === "ADD") {
-    console.log("Hi~ ADD!!!");
     return count + 1;
   } else if (action.type === "MINUS") {
     return count - 1;
   }
-  // console.log(count, action);
   return count;
 };
 
 const countStore = createStore(countModifier);
 
-countStore.dispatch({ type: "ADD" });
-countStore.dispatch({ type: "MINUS" });
-countStore.dispatch({ type: "MINUS" });
-countStore.dispatch({ type: "MINUS" });
+const onChange = () => {
+  number.innerText = countStore.getState();
+};
 
-console.log(countStore.getState());
+countStore.subscribe(onChange);
+
+add.addEventListener("click", () => countStore.dispatch({ type: "ADD" }));
+minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
