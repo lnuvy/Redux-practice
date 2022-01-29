@@ -4,10 +4,17 @@ const add = document.getElementById("add");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
 
-const countModifier = (state = 0) => {
-  return state;
+const countModifier = (count = 0, action) => {
+  if (action.type === "ADD") {
+    console.log("Hi~ ADD!!!");
+    return count + 1;
+  }
+  // console.log(count, action);
+  return count;
 };
 
 const countStore = createStore(countModifier);
+
+countStore.dispatch({ type: "ADD" });
 
 console.log(countStore.getState());
