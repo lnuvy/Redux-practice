@@ -6,15 +6,21 @@ const number = document.querySelector("span");
 
 number.innerText = 0;
 
+const ADD = "ADD";
+const MINUS = "MINUS";
+
 // Reducer 데이터가 수정되는 유일한 함수
 const countModifier = (count = 0, action) => {
-  console.log(count, action);
-  if (action.type === "ADD") {
-    return count + 1;
-  } else if (action.type === "MINUS") {
-    return count - 1;
+  switch (action.type) {
+    case ADD:
+      return count + 1;
+      break;
+    case MINUS:
+      return count - 1;
+      break;
+    default:
+      return count;
   }
-  return count;
 };
 
 const countStore = createStore(countModifier);
@@ -25,5 +31,5 @@ const onChange = () => {
 
 countStore.subscribe(onChange);
 
-add.addEventListener("click", () => countStore.dispatch({ type: "ADD" }));
-minus.addEventListener("click", () => countStore.dispatch({ type: "MINUS" }));
+add.addEventListener("click", () => countStore.dispatch({ type: ADD }));
+minus.addEventListener("click", () => countStore.dispatch({ type: MINUS }));
