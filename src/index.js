@@ -11,7 +11,7 @@ const reducer = (state = [], action) => {
   console.log(action);
   switch (action.type) {
     case ADD_TODO:
-      return [...state, { text: action.text }];
+      return [...state, { text: action.text, id: Date.now() }];
     case DLELTE_TODO:
       return [];
     default:
@@ -21,17 +21,27 @@ const reducer = (state = [], action) => {
 
 const store = createStore(reducer);
 
-// const createTodo = (Todo) => {
-//   const li = document.createElement("li");
-//   li.innerText = Todo;
-//   ul.appendChild(li);
-// };
+const paintTodos = () => {
+  const toDos = store.getState();
+  toDos.forEach((toDo) => {
+    const li = document.createElement("li");
+    li.id = toDo.id;
+    li.innerText = toDo.text;
+    ul.appendChild(li);
+  });
+};
+
+store.subscribe(paintTodos);
+
+const addTodo = (text) => {
+  store.dispatch({ type: ADD_TODO, text });
+};
 
 const onSubmit = (e) => {
   e.preventDefault();
   const Todo = input.value;
   input.value = "";
-  store.dispatch({ type: ADD_TODO, text: Todo });
+  addTodo(Todo);
 };
 
 form.addEventListener("submit", onSubmit);
