@@ -23,6 +23,7 @@ const store = createStore(reducer);
 
 const paintTodos = () => {
   const toDos = store.getState();
+  ul.innerHTML = "";
   toDos.forEach((toDo) => {
     const li = document.createElement("li");
     li.id = toDo.id;
